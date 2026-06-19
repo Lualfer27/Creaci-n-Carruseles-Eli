@@ -7,7 +7,7 @@ import { generateRandomColorSequence } from './utils';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
-  const [text, setText] = useState('Nunca fue tarde.\n\nTodo cambia.\n\nAprende a soltar.');
+  const [text, setText] = useState('Nunca fue tarde.\n--\nTodo cambia.\n--\nAprende a soltar.');
   const [globalRatio, setGlobalRatio] = useState<AspectRatio>('4:5');
   const [globalTypography, setGlobalTypography] = useState<TypographySettings>({
     fontFamily: 'font-cormorant',
@@ -25,8 +25,8 @@ export default function App() {
   const [editingImage, setEditingImage] = useState<ImageConfig | null>(null);
 
   useEffect(() => {
-    // Split by two or more newlines (to allow single newlines within the same image)
-    const lines = text.split(/\n\s*\n/).filter(line => line.trim().length > 0);
+    // Split by `--` on a line by itself to create new images
+    const lines = text.split(/^\s*--\s*$/m).map(line => line.trim()).filter(line => line.length > 0);
     const bgSequence = generateRandomColorSequence(lines.length, INITIAL_PALETTE);
     
     setImages(prevImages => {
@@ -65,7 +65,7 @@ export default function App() {
 
   const handleDuplicateImage = (img: ImageConfig) => {
      // Not perfectly syncing text, but we'll add text for now
-     setText(prev => prev + '\n' + img.text);
+     setText(prev => prev + '\n--\n' + img.text);
   };
 
   return (

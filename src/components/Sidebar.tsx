@@ -44,11 +44,11 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
            </div>
            <textarea 
              className="w-full h-40 p-4 bg-gray-50 border border-gray-200 rounded-xl resize-none text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-             placeholder="Escribe tu texto aquí...&#10;&#10;Usa doble'Enter' para mostrar texto en una nueva imagen."
+             placeholder="Escribe tu texto aquí...&#10;&#10;Usa -- en una línea nueva para dividir en varias imágenes."
              value={text}
              onChange={e => setText(e.target.value)}
            />
-           <p className="text-xs text-gray-400">Presiona <strong>Enter</strong> para saltar renglón en la misma imagen. Presiona <strong>Enter dos veces</strong> para crear una nueva imagen.</p>
+           <p className="text-xs text-gray-400">Presiona <strong>Enter</strong> para saltar renglón o dejar un párrafo vacío en la misma imagen. Escribe <strong>--</strong> en una línea nueva para dividir tu texto en múltiples imágenes.</p>
         </div>
 
         <InstagramCopy text={text} />
