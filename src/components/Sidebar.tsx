@@ -12,11 +12,10 @@ interface SidebarProps {
   setGlobalTypography: (t: TypographySettings) => void;
   applyToAll: boolean;
   setApplyToAll: (b: boolean) => void;
-  imagesCount: number;
   images: ImageConfig[];
 }
 
-export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, globalTypography, setGlobalTypography, applyToAll, setApplyToAll, imagesCount, images }: SidebarProps) {
+export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, globalTypography, setGlobalTypography, applyToAll, setApplyToAll, images }: SidebarProps) {
   
   const updateTypo = (key: keyof TypographySettings, value: string | number) => {
     setGlobalTypography({ ...globalTypography, [key]: value });
