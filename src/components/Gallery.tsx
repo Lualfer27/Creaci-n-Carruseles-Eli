@@ -39,8 +39,9 @@ export default function Gallery({ images, onEdit, onDuplicate }: GalleryProps) {
                        }}
                     >
                        <div 
-                         className={`absolute inset-0 flex items-center justify-center p-12 whitespace-pre-wrap break-words`}
+                         className={`absolute inset-0 flex items-center justify-center whitespace-pre-wrap break-words`}
                          style={{
+                            padding: `${(img.typography.padding / styleCfg.w) * 100}cqi`,
                             fontFamily: `var(--${img.typography.fontFamily})`,
                             fontWeight: img.typography.fontWeight,
                             fontSize: `${(img.typography.fontSize / styleCfg.w) * 100}cqi`,

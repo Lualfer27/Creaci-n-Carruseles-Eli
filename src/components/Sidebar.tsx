@@ -138,10 +138,22 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
                   Tamaño <span>{globalTypography.fontSize}</span>
                 </label>
                 <input 
-                  type="range" min="20" max="200" step="1"
+                  type="range" min="20" max="240" step="1"
                   className="w-full accent-black"
                   value={globalTypography.fontSize}
                   onChange={(e) => updateTypo('fontSize', Number(e.target.value))}
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block flex justify-between">
+                  Margen <span>{globalTypography.padding}</span>
+                </label>
+                <input 
+                  type="range" min="0" max="200" step="1"
+                  className="w-full accent-black"
+                  value={globalTypography.padding}
+                  onChange={(e) => updateTypo('padding', Number(e.target.value))}
                 />
               </div>
 

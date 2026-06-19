@@ -161,9 +161,17 @@ export default function EditModal({ image, onClose, onUpdate }: EditModalProps) 
 
                 <div className="pt-2">
                   <label className="text-[10px] text-gray-500 uppercase tracking-wider mb-1 block">Tamaño</label>
-                  <input type="range" min="20" max="200" step="1" className="w-full accent-black"
+                  <input type="range" min="20" max="240" step="1" className="w-full accent-black"
                     value={localImage.typography.fontSize}
                     onChange={(e) => updateTypo('fontSize', Number(e.target.value))}
+                  />
+                </div>
+
+                 <div>
+                  <label className="text-[10px] text-gray-500 uppercase tracking-wider mb-1 block">Margen</label>
+                  <input type="range" min="0" max="200" step="1" className="w-full accent-black"
+                    value={localImage.typography.padding}
+                    onChange={(e) => updateTypo('padding', Number(e.target.value))}
                   />
                 </div>
                  
@@ -225,8 +233,9 @@ export default function EditModal({ image, onClose, onUpdate }: EditModalProps) 
                    className="@container"
                  >
                     <div 
-                        className={`absolute inset-0 flex items-center justify-center p-8 ${localImage.typography.fontFamily} whitespace-pre-wrap break-words`}
+                        className={`absolute inset-0 flex items-center justify-center ${localImage.typography.fontFamily} whitespace-pre-wrap break-words`}
                         style={{
+                           padding: `${(localImage.typography.padding / styleCfg.w) * 100}cqi`,
                            fontFamily: `var(--${localImage.typography.fontFamily})`, // Tailwind custom props
                            fontWeight: localImage.typography.fontWeight,
                            // map the px value relative to 1080px width:
