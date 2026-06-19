@@ -25,7 +25,7 @@ export default function App() {
   const [editingImage, setEditingImage] = useState<ImageConfig | null>(null);
 
   useEffect(() => {
-    const lines = text.split('\n');
+    const lines = text.split(/\r?\n/).filter(line => line.trim().length > 0);
     const bgSequence = generateRandomColorSequence(lines.length, INITIAL_PALETTE);
     
     setImages(prevImages => {
