@@ -26,7 +26,7 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
   };
   
   return (
-    <aside className="w-80 border-r border-gray-200 bg-white flex flex-col h-full overflow-y-auto shrink-0 shadow-sm z-10">
+    <aside className="w-full md:w-80 border-b md:border-b-0 md:border-r border-gray-200 bg-white flex flex-col md:h-full overflow-visible md:overflow-y-auto shrink-0 shadow-sm z-20">
       <div className="p-6 border-b border-gray-100">
         <h1 className="text-xl font-display font-medium tracking-tight mb-1 flex items-center gap-2">
            <ImageIcon className="w-5 h-5 text-gray-500"/>
@@ -35,12 +35,11 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
         <p className="text-sm text-gray-500">Transforma texto en imágenes.</p>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-8">
+      <div className="flex-1 overflow-visible md:overflow-y-auto p-6 space-y-8">
         {/* TEXT INPUT */}
         <div className="space-y-3">
            <div className="flex justify-between items-center text-sm font-medium text-gray-700">
               <label className="flex items-center gap-2"><Type className="w-4 h-4"/> Contenido</label>
-              <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">{images.length} img</span>
            </div>
            <textarea 
              className="w-full h-40 p-4 bg-gray-50 border border-gray-200 rounded-xl resize-none text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
@@ -185,10 +184,10 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
         </div>
       </div>
 
-      <div className="p-6 border-t border-gray-100 bg-gray-50">
-         <button onClick={handleDownloadAll} className="w-full flex items-center justify-center gap-2 bg-black hover:bg-gray-800 text-white p-3 rounded-xl font-medium transition-colors shadow-sm active:scale-[0.98]">
+      <div className="p-4 md:p-6 border-t md:border-gray-100 border-gray-200 bg-white md:bg-gray-50 fixed md:static bottom-0 left-0 w-full md:w-auto z-50">
+         <button onClick={handleDownloadAll} className="w-full flex items-center justify-center gap-2 bg-black hover:bg-gray-800 text-white p-3 rounded-xl font-medium transition-colors shadow-[0_4px_14px_0_rgb(0,0,0,0.39)] md:shadow-sm active:scale-[0.98]">
            <Download className="w-4 h-4"/>
-           Descargar {images.length} {images.length === 1 ? 'imagen' : 'imágenes'}
+           Descargar todo
          </button>
       </div>
 

@@ -68,7 +68,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex bg-white text-gray-900 font-sans h-screen w-screen overflow-hidden">
+    <div className="flex flex-col md:flex-row bg-white text-gray-900 font-sans min-h-screen md:h-screen w-screen overflow-x-hidden md:overflow-hidden relative pb-20 md:pb-0">
       <Sidebar 
          text={text} 
          setText={setText}

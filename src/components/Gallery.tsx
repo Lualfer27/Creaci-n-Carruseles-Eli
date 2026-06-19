@@ -12,10 +12,10 @@ interface GalleryProps {
 
 export default function Gallery({ images, onEdit, onDuplicate }: GalleryProps) {
   return (
-    <main className="flex-1 overflow-y-auto bg-[#F9F9F9] relative">
+    <main className="flex-1 overflow-visible md:overflow-y-auto bg-[#F9F9F9] relative flex flex-col">
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none"></div>
       
-      <div className="p-10 max-w-7xl mx-auto z-10 relative">
+      <div className="flex-1 p-6 md:p-10 max-w-7xl mx-auto z-10 relative w-full">
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-start">
             {images.map((img, ix) => {
                const styleCfg = RATIO_TO_DIMENSIONS[img.ratio];
@@ -32,11 +32,12 @@ export default function Gallery({ images, onEdit, onDuplicate }: GalleryProps) {
                     {/* The Canvas wrapper. Uses an aspect ratio div to keep shape predictable in UI. */}
                     <div 
                        id={`canvas-${img.id}`}
-                       className={`w-full overflow-hidden relative shadow-sm border border-gray-100 rounded-lg group-hover:shadow-md transition-shadow @container`}
+                       className={`w-full overflow-hidden relative shadow-sm border border-gray-100 rounded-lg group-hover:shadow-md transition-shadow @container cursor-pointer`}
                        style={{ 
                           backgroundColor: img.background, 
                           aspectRatio: styleCfg.w / styleCfg.h
                        }}
+                       onClick={() => onEdit(img)}
                     >
                        <div 
                          className={`absolute inset-0 flex items-center justify-center whitespace-pre-wrap break-words`}
@@ -56,7 +57,7 @@ export default function Gallery({ images, onEdit, onDuplicate }: GalleryProps) {
                     </div>
 
                     {/* Actions Panel */}
-                    <div className="bg-white rounded-lg p-3 border border-gray-100 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                    <div className="bg-white rounded-lg p-3 border border-gray-100 flex items-center justify-between opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity shadow-sm">
                        <span className="text-[10px] font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded">
                          {img.ratio}
                        </span>
