@@ -2,6 +2,7 @@ import React from 'react';
 import { AspectRatio, TypographySettings, FONTS, RATIO_TO_DIMENSIONS, ImageConfig } from '../types';
 import { Settings, Image as ImageIcon, Type, LayoutTemplate, Download, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
 import { downloadMultipleImages } from '../export';
+import InstagramCopy from './InstagramCopy';
 
 interface SidebarProps {
   text: string;
@@ -43,11 +44,14 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
            </div>
            <textarea 
              className="w-full h-40 p-4 bg-gray-50 border border-gray-200 rounded-xl resize-none text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-             placeholder="Escribe una frase por línea..."
+             placeholder="Escribe tu texto aquí...&#10;&#10;Usa doble'Enter' para mostrar texto en una nueva imagen."
              value={text}
              onChange={e => setText(e.target.value)}
            />
+           <p className="text-xs text-gray-400">Presiona <strong>Enter</strong> para saltar renglón en la misma imagen. Presiona <strong>Enter dos veces</strong> para crear una nueva imagen.</p>
         </div>
+
+        <InstagramCopy text={text} />
 
         {/* RATIO SELECTOR */}
         <div className="space-y-3">
