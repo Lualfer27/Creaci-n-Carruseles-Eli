@@ -26,7 +26,7 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
     await downloadMultipleImages(images);
   };
 
-  const linesCount = text.split('\n').length;
+  const validImagesCount = text.split('\n').filter(line => line.trim().length > 0).length;
   
   return (
     <aside className="w-80 border-r border-gray-200 bg-white flex flex-col h-full overflow-y-auto shrink-0 shadow-sm z-10">
@@ -43,7 +43,7 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
         <div className="space-y-3">
            <div className="flex justify-between items-center text-sm font-medium text-gray-700">
               <label className="flex items-center gap-2"><Type className="w-4 h-4"/> Contenido</label>
-              <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">{imagesCount} img</span>
+              <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">{validImagesCount} img</span>
            </div>
            <textarea 
              className="w-full h-40 p-4 bg-gray-50 border border-gray-200 rounded-xl resize-none text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
@@ -179,7 +179,7 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
       <div className="p-6 border-t border-gray-100 bg-gray-50">
          <button onClick={handleDownloadAll} className="w-full flex items-center justify-center gap-2 bg-black hover:bg-gray-800 text-white p-3 rounded-xl font-medium transition-colors shadow-sm active:scale-[0.98]">
            <Download className="w-4 h-4"/>
-           Descargar {imagesCount}
+           Descargar {validImagesCount}
          </button>
       </div>
 
