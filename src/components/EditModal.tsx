@@ -233,21 +233,32 @@ export default function EditModal({ image, onClose, onUpdate }: EditModalProps) 
                    className="@container"
                  >
                     <div 
-                        className={`absolute inset-0 flex items-center justify-center ${localImage.typography.fontFamily} whitespace-pre-wrap break-words`}
+                        className={`absolute inset-0 flex flex-col items-center justify-center`}
                         style={{
                            padding: `${(localImage.typography.padding / styleCfg.w) * 100}cqi`,
-                           fontFamily: `var(--${localImage.typography.fontFamily})`, // Tailwind custom props
-                           fontWeight: localImage.typography.fontWeight,
-                           // map the px value relative to 1080px width:
-                           // 100px on 1080px is ~9.25cqi.
-                           fontSize: `${(localImage.typography.fontSize / styleCfg.w) * 100}cqi`,
-                           color: localImage.typography.color,
-                           lineHeight: localImage.typography.lineHeight,
-                           letterSpacing: `${(localImage.typography.letterSpacing / styleCfg.w) * 100}cqi`,
-                           textAlign: localImage.typography.align,
                         }}
                      >
-                        {localImage.text}
+                        <div 
+                           className={`w-full whitespace-pre-wrap break-words`}
+                           style={{
+                              fontFamily: `var(--${localImage.typography.fontFamily})`, // Tailwind custom props
+                              fontWeight: localImage.typography.fontWeight,
+                              // map the px value relative to 1080px width:
+                              // 100px on 1080px is ~9.25cqi.
+                              fontSize: `${(localImage.typography.fontSize / styleCfg.w) * 100}cqi`,
+                              color: localImage.typography.color,
+                              lineHeight: localImage.typography.lineHeight,
+                              letterSpacing: `${(localImage.typography.letterSpacing / styleCfg.w) * 100}cqi`,
+                              textAlign: localImage.typography.align,
+                           }}
+                        >
+                           {localImage.text.split('\n').map((line, i, arr) => (
+                              <React.Fragment key={i}>
+                                 {line}
+                                 {i < arr.length - 1 && <br />}
+                              </React.Fragment>
+                           ))}
+                        </div>
                      </div>
                  </div>
              </div>

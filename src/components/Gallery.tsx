@@ -40,19 +40,30 @@ export default function Gallery({ images, onEdit, onDuplicate }: GalleryProps) {
                        onClick={() => onEdit(img)}
                     >
                        <div 
-                         className={`absolute inset-0 flex items-center justify-center whitespace-pre-wrap break-words`}
+                         className={`absolute inset-0 flex flex-col items-center justify-center`}
                          style={{
                             padding: `${(img.typography.padding / styleCfg.w) * 100}cqi`,
-                            fontFamily: `var(--${img.typography.fontFamily})`,
-                            fontWeight: img.typography.fontWeight,
-                            fontSize: `${(img.typography.fontSize / styleCfg.w) * 100}cqi`,
-                            color: img.typography.color,
-                            lineHeight: img.typography.lineHeight,
-                            letterSpacing: `${(img.typography.letterSpacing / styleCfg.w) * 100}cqi`,
-                            textAlign: img.typography.align,
                          }}
                        >
-                          {img.text}
+                         <div
+                           className={`w-full whitespace-pre-wrap break-words`}
+                           style={{
+                              fontFamily: `var(--${img.typography.fontFamily})`,
+                              fontWeight: img.typography.fontWeight,
+                              fontSize: `${(img.typography.fontSize / styleCfg.w) * 100}cqi`,
+                              color: img.typography.color,
+                              lineHeight: img.typography.lineHeight,
+                              letterSpacing: `${(img.typography.letterSpacing / styleCfg.w) * 100}cqi`,
+                              textAlign: img.typography.align,
+                           }}
+                         >
+                            {img.text.split('\n').map((line, i, arr) => (
+                               <React.Fragment key={i}>
+                                  {line}
+                                  {i < arr.length - 1 && <br />}
+                               </React.Fragment>
+                            ))}
+                         </div>
                        </div>
                     </div>
 
