@@ -19,11 +19,17 @@ export default function InstagramCopy({ text }: { text: string }) {
         body: JSON.stringify({ text }),
       });
       
-      if (!response.ok) {
-        throw new Error('Error al generar el copy. Inténtalo de nuevo.');
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        throw new Error('Error al conectar con la API (Revisa Vercel).');
       }
       
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al generar el copy. Inténtalo de nuevo.');
+      }
+      
       setCopyOutput(data.result);
     } catch (err: any) {
       setError(err.message);
