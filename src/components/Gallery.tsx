@@ -57,12 +57,7 @@ export default function Gallery({ images, onEdit, onDuplicate }: GalleryProps) {
                               textAlign: img.typography.align,
                            }}
                          >
-                            {img.text.split('\n').map((line, i, arr) => (
-                               <React.Fragment key={i}>
-                                  {line}
-                                  {i < arr.length - 1 && <br />}
-                               </React.Fragment>
-                            ))}
+                            {img.text}
                          </div>
                        </div>
                     </div>
