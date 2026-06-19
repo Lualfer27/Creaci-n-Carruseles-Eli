@@ -45,7 +45,7 @@ export default function App() {
         }
         
         return {
-          id: crypto.randomUUID(),
+          id: Math.random().toString(36).substring(2, 9) + Date.now().toString(36),
           text: line,
           ratio: globalRatio,
           background: bgSequence[ix].hex,
