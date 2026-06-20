@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { AspectRatio, TypographySettings, FONTS, RATIO_TO_DIMENSIONS, ImageConfig } from '../types';
-import { Settings, Image as ImageIcon, Type, LayoutTemplate, Download, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
+import { Settings, Image as ImageIcon, Type, LayoutTemplate, Download, AlignLeft, AlignCenter, AlignRight, Smile } from 'lucide-react';
 import { downloadMultipleImages } from '../export';
 import InstagramCopy from './InstagramCopy';
+import EmojiPicker from 'emoji-picker-react';
 
 interface SidebarProps {
   text: string;
@@ -17,6 +18,8 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, globalTypography, setGlobalTypography, applyToAll, setApplyToAll, images }: SidebarProps) {
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   
   const updateTypo = (key: keyof TypographySettings, value: string | number) => {
     setGlobalTypography({ ...globalTypography, [key]: value });
@@ -26,6 +29,26 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
     await downloadMultipleImages(images);
   };
   
+  const onEmojiClick = (emojiObject: any) => {
+    const cursorPosition = textareaRef.current?.selectionStart;
+    if (cursorPosition !== undefined) {
+      const textBeforeCursorPosition = text.substring(0, cursorPosition);
+      const textAfterCursorPosition = text.substring(cursorPosition, text.length);
+      const newText = textBeforeCursorPosition + emojiObject.emoji + textAfterCursorPosition;
+      setText(newText);
+      
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.selectionStart = cursorPosition + emojiObject.emoji.length;
+          textareaRef.current.selectionEnd = cursorPosition + emojiObject.emoji.length;
+          textareaRef.current.focus();
+        }
+      }, 0);
+    } else {
+      setText(text + emojiObject.emoji);
+    }
+  };
+
   return (
     <aside className="w-full md:w-80 border-b md:border-b-0 md:border-r border-gray-200 bg-white flex flex-col md:h-full overflow-visible md:overflow-y-auto shrink-0 shadow-sm z-20">
       <div className="p-6 border-b border-gray-100">
@@ -39,10 +62,30 @@ export default function Sidebar({ text, setText, globalRatio, setGlobalRatio, gl
       <div className="flex-1 overflow-visible md:overflow-y-auto p-6 space-y-8">
         {/* TEXT INPUT */}
         <div className="space-y-3">
-           <div className="flex justify-between items-center text-sm font-medium text-gray-700">
+           <div className="flex justify-between items-center text-sm font-medium text-gray-700 relative">
               <label className="flex items-center gap-2"><Type className="w-4 h-4"/> Contenido</label>
+              <button 
+                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                className="text-gray-500 hover:text-black p-1 rounded transition-colors"
+                title="Añadir Emoji"
+              >
+                <Smile className="w-4 h-4"/>
+              </button>
+              {showEmojiPicker && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setShowEmojiPicker(false)}></div>
+                  <div className="relative z-10 bg-white rounded-xl shadow-2xl overflow-hidden">
+                    <EmojiPicker 
+                      onEmojiClick={onEmojiClick} 
+                      width={380}
+                      height={500}
+                    />
+                  </div>
+                </div>
+              )}
            </div>
            <textarea 
+             ref={textareaRef}
              className="w-full h-40 p-4 bg-gray-50 border border-gray-200 rounded-xl resize-none text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
              placeholder="Escribe tu texto aquí...&#10;&#10;Usa -- en una línea nueva para dividir en varias imágenes."
              value={text}
